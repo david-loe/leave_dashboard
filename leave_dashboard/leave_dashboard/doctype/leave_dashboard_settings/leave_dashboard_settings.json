@@ -1,0 +1,104 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-07-11 12:06:35.121442",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "data_limits_section",
+  "data_days_in_past",
+  "data_days_in_future",
+  "column_break_iwli",
+  "view_days_in_past",
+  "view_days_in_future",
+  "style_section",
+  "leave_type_styles",
+  "default_leave_color"
+ ],
+ "fields": [
+  {
+   "fieldname": "data_limits_section",
+   "fieldtype": "Section Break",
+   "label": "Data Limits"
+  },
+  {
+   "fieldname": "column_break_iwli",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "14",
+   "fieldname": "data_days_in_past",
+   "fieldtype": "Int",
+   "label": "Data Days in Past",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "default": "365",
+   "fieldname": "data_days_in_future",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Data Days in Future",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "view_days_in_past",
+   "fieldtype": "Int",
+   "label": "View Days in Past",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "default": "14",
+   "fieldname": "view_days_in_future",
+   "fieldtype": "Int",
+   "label": "View Days in Future",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "style_section",
+   "fieldtype": "Section Break",
+   "label": "Style"
+  },
+  {
+   "fieldname": "leave_type_styles",
+   "fieldtype": "Table",
+   "label": "Leave Type Styles",
+   "options": "Leave Dashboard Leave Types"
+  },
+  {
+   "default": "#d9f995",
+   "fieldname": "default_leave_color",
+   "fieldtype": "Color",
+   "label": "Default Leave Color"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2025-07-11 12:22:16.231068",
+ "modified_by": "Administrator",
+ "module": "Leave Dashboard",
+ "name": "Leave Dashboard Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
