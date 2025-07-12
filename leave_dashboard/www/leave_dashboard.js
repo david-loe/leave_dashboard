@@ -128,6 +128,7 @@ function renderTable(tableData) {
                     }
                     div.classList.add(LEAVE_TYPE_CLASS_MAP[col.leave_type] || 'default-leave')
                     div.textContent = LEAVE_TYPE_TEXT_MAP[col.leave_type] || col.leave_type.substring(0, 3)
+                    div.title = col.leave_type
                     td.appendChild(div)
                 }
 

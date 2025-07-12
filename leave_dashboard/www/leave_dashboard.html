@@ -61,15 +61,25 @@
 <style>
 	{{leave_types_css}}
 </style>
-{% endblock %} {% block page_content %}
-<h3>{{ _("Leave Dashboard") }}</h3>
-<div id="controler" class="form-inline mb-3">
-	<label for="fromDate">{{_("From")}}:</label>
-	<input class="form-control mr-3" type="date" id="fromDate" />
+{% endblock %}
 
-	<label for="toDate">{{_("To")}}:</label>
-	<input class="form-control" type="date" id="toDate" />
+{% block page_content %}
+<div class="row mb-3 align-items-end justify-content-between">
+	<div class="col-auto">
+		<h3 class="m-0">{{ _("Leave Dashboard") }}</h3>
+	</div>
+	<div class="col-auto">
+		<div id="controler" class="form-inline">
+			<label for="fromDate">{{_("From")}}:</label>
+			<input class="form-control mr-3" type="date" id="fromDate" />
+
+			<label for="toDate">{{_("Until")}}:</label>
+			<input class="form-control" type="date" id="toDate" />
+		</div>
+	</div>
 </div>
+
+
 <div class="table-responsive" id="gantt">
 	<table class="table table-bordered table-sm">
 		<colgroup id="ganttColgroup">
