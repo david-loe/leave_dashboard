@@ -1,108 +1,70 @@
-{% from "frappe/templates/includes/avatar_macro.html" import avatar %}
-{% extends "templates/web.html" %}
+{% extends "templates/base.html" %}
 {% block title %}
 {{ _("Leave Dashboard") }}
 {% endblock %}
 {% block head %}
 {{ super() }}
 <style>
-	th.today {
-		background-color: var(--bg-dark-blue);
-	}
-	td.holiday {
-		background-color: var(--bg-gray);
-	}
-	td > div.half-day-start {
-		margin-left: 0.8em;
-	}
-	td > div.half-day-end {
-		margin-right: 0.8em;
-	}
-	td > div {
-		border-radius: 0.3em;
-		border-style: solid;
-		border-width: 3px;
-	}
-	col.day {
-		width: 2em;
-	}
-	col.today {
-		width: 2.5em;
-	}
-	table {
-		border-collapse: separate; /* wichtig für sticky */
-		border-spacing: 0;
-		table-layout: fixed;
-	}
-	td {
-		text-align: center;
-		padding: 0.1em !important;
-	}
-
-	th:first-child,
-	td:first-child {
-		position: sticky;
-		left: 0;
-		z-index: 2;
-		background-color: white;
-	}
-
-	thead th {
-		position: sticky;
-		top: 0;
-		z-index: 10;
-		background-color: var(--gray-50);
-	}
-
-	thead th:first-child {
-		z-index: 11;
-	}
-</style>
-<style>
-	{{leave_types_css}}
+  {{leave_types_css}}
 </style>
 {% endblock %}
 
-{% block page_content %}
-<div class="row mb-3 align-items-end justify-content-between">
-	<div class="col-auto">
-		<h3 class="m-0">{{ _("Leave Dashboard") }}</h3>
-	</div>
-	<div class="col-auto">
-		<div id="controler" class="form-inline">
-			<label for="fromDate">{{_("From")}}:</label>
-			<input class="form-control mr-3" type="date" id="fromDate" />
+{% block content %}
+<div id="content-container" class="container-md my-2 px-1">
+  <div class="row mb-3 align-items-end justify-content-between">
+    <div class="col-auto">
+      <h3 class="m-0">{{ _("Leave Dashboard") }}</h3>
+    </div>
+    <div class="col-auto mt-1">
+      <div class="row">
+        <div class="col-auto">
+          <div class="form-inline">
+            <label class="m-0" for="fromDate">{{_("From")}}:</label>
+            <input class="form-control" type="date" id="fromDate" />
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="form-inline">
+            <label class="m-0" for="toDate">{{_("Until")}}:</label>
+            <input class="form-control" type="date" id="toDate" />
+          </div>
+        </div>
+      </div>
 
-			<label for="toDate">{{_("Until")}}:</label>
-			<input class="form-control" type="date" id="toDate" />
-		</div>
-	</div>
+    </div>
+  </div>
+
+  <div class="table-responsive" id="top-scroll-wrapper" style="scrollbar-gutter: stable;">
+    <div id="top-scroll-content" style="height: 11px;"></div>
+  </div>
+  <div class="table-responsive" id="gantt">
+    <table class="table table-bordered table-sm">
+      <colgroup id="ganttColgroup">
+        <col style="width: 170px" />
+      </colgroup>
+      <thead id="ganttHeader" class="text-center">
+        <tr>
+          <th>
+            <input class="form-control" type="text" id="employeeNameFilter" />
+          </th>
+        </tr>
+      </thead>
+      <tbody id="ganttBody"></tbody>
+    </table>
+  </div>
 </div>
 
-
-<div class="table-responsive" id="gantt">
-	<table class="table table-bordered table-sm">
-		<colgroup id="ganttColgroup">
-			<col style="width: 150px" />
-		</colgroup>
-		<thead id="ganttHeader" class="text-center">
-			<tr>
-				<th>
-					<input class="form-control" type="text" id="employeeNameFilter" />
-				</th>
-			</tr>
-		</thead>
-		<tbody id="ganttBody"></tbody>
-	</table>
-</div>
 <script>
-	window.userLanguage =
-		("{{ current_user.language }}" || "None") === "None"
-			? "en"
-			: "{{ current_user.language }}";
-	window.settingsJSON = `{{ settings_json }}`;
-	window.leaveDataJSON = `{{ leave_data_json }}`;
-	window.leaveTypesJSON = `{{ leave_types_json }}`;
-	window.holidayListsJSON = `{{ holiday_lists_json }}`;
+  window.userLanguage =
+    ("{{ current_user.language }}" || "None") === "None"
+      ? "en"
+      : "{{ current_user.language }}";
+  window.userId = "{{ current_user.name }}"
+  window.settingsJSON = `{{ settings_json }}`;
+  window.leaveDataJSON = `{{ leave_data_json }}`;
+  window.leaveTypesJSON = `{{ leave_types_json }}`;
+  window.holidayListsJSON = `{{ holiday_lists_json }}`;
 </script>
+{% endblock %}
+{% block footer %}
 {% endblock %}

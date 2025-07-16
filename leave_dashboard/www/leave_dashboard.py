@@ -38,7 +38,7 @@ def get_context(context):
 
 
 def get_leave_data(from_date: datetime , to_date: datetime):
-    employees = frappe.db.get_all("Employee", filters={"status": "Active", 'holiday_list': ["is", "set"]}, fields=['name','first_name', 'last_name','holiday_list','employee_name' ], order_by="last_name asc")
+    employees = frappe.db.get_all("Employee", filters={"status": "Active", 'holiday_list': ["is", "set"]}, fields=['name','first_name', 'last_name','holiday_list','employee_name', 'user_id' ], order_by="last_name asc")
     applications = frappe.db.get_all("Leave Application", filters={"status": "Approved", "to_date": [">=", from_date.strftime("%Y-%m-%d")], "from_date": ["<=", to_date.strftime("%Y-%m-%d")]}, fields=['from_date', 'to_date', 'employee', 'leave_type', 'half_day', 'half_day_date'], order_by="from_date asc")
     for employee in employees:
         employee.leaves = [leave for leave in applications if leave.employee == employee.name]

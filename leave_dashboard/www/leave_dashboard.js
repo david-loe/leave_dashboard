@@ -1,7 +1,9 @@
 /**
- * @type {{name: string,first_name: string, last_name: string, employee_name:string,holiday_list: string, leaves: {from_date: string, to_date: string, employee: string, leave_type: string, half_day: boolean, half_day_date: string}[]}[]}
+ * @type {{name: string,first_name: string, last_name: string, employee_name:string, holiday_list: string, user_id: string, leaves: {from_date: string, to_date: string, employee: string, leave_type: string, half_day: boolean, half_day_date: string}[]}[]}
  */
 const LEAVE_DATA = JSON.parse(window.leaveDataJSON);
+
+const CURRENT_USER_DATA = findAndRemove(LEAVE_DATA, (e) => e.user_id === window.userId)
 
 /**
  * @type {{[key: string]: {date: Date, description: string, holiday_date: string}[]}}
@@ -54,6 +56,9 @@ const CACHE = {
 const fromDateInput = document.getElementById("fromDate");
 const toDateInput = document.getElementById("toDate");
 const employeeNameFilterInput = document.getElementById("employeeNameFilter");
+const gantt = document.getElementById('gantt');
+const topScrollWrapper = document.getElementById('top-scroll-wrapper');
+const topScrollContent = document.getElementById('top-scroll-content');
 
 const TODAY = new Date(formatDateAsISO(new Date()))
 const DATA_MAX_DATE = formatDateAsISO(new Date(Date.now() + SETTINGS.data_days_in_future * 24 * 60 * 60 * 1000))
@@ -69,7 +74,12 @@ fromDateInput.addEventListener("change", onChange)
 toDateInput.addEventListener("change", onChange)
 employeeNameFilterInput.addEventListener("input", onChange)
 
+gantt.onscroll = function () { topScrollWrapper.scrollLeft = gantt.scrollLeft; };
+topScrollWrapper.onscroll = function () { gantt.scrollLeft = topScrollWrapper.scrollLeft; };
+
+// Initial Load
 onChange()
+
 
 function onChange() {
     const fromVal = fromDateInput.value;
@@ -114,6 +124,7 @@ function renderTable(tableData) {
 
         const th = document.createElement("th");
         th.textContent = employee.employee_name;
+        th.classList.add('text-truncate')
         tr.appendChild(th);
         for (const col of employee.row) {
             const td = document.createElement("td");
@@ -137,6 +148,7 @@ function renderTable(tableData) {
         }
         tableBody.appendChild(tr);
     }
+    topScrollContent.style.width = gantt.scrollWidth + 'px';
 }
 
 /**
@@ -146,14 +158,17 @@ function renderTable(tableData) {
  * @param {Date} to
  */
 function calcTableData(filter, from, to) {
-    let filteredEmployees;
+    let filteredEmployees = []
+    if (CURRENT_USER_DATA) {
+        filteredEmployees.push(CURRENT_USER_DATA)
+    }
     if (filter) {
-        filteredEmployees =
-            LEAVE_DATA.filter((employee) =>
+        filteredEmployees.push(
+            ...LEAVE_DATA.filter((employee) =>
                 employee.employee_name.toLowerCase().indexOf(filter.toLowerCase()) !== -1
-            )
+            ))
     } else {
-        filteredEmployees = [...LEAVE_DATA];
+        filteredEmployees.push(...LEAVE_DATA)
     }
     const data = []
     const dates = getDatesBetween(from, to);
@@ -294,4 +309,21 @@ function getDatesBetween(start, end) {
         curr.setDate(curr.getDate() + 1);
     }
     return dates;
+}
+
+/**
+ * Finds the first element in the array that satisfies the given predicate,
+ * removes it from the array, and returns it.
+ *
+ * @template T
+ * @param {T[]} array - The array to search and modify.
+ * @param {(item: T, index: number, array: T[]) => boolean} predicate - A function to test each element.
+ * @returns {T | null} The found element, or null if none was found.
+ */
+function findAndRemove(array, predicate) {
+    const index = array.findIndex(predicate);
+    if (index !== -1) {
+        return array.splice(index, 1)[0];
+    }
+    return null;
 }

@@ -1,0 +1,75 @@
+html,
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+}
+
+#content-container {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	min-height: 0; /* Wichtig, damit der gantt-Bereich korrekt schrumpfen kann */
+}
+
+#gantt {
+	flex: 1;
+	overflow: auto;
+}
+
+th.today {
+	background-color: var(--bg-dark-blue);
+}
+td.holiday {
+	background-color: var(--bg-gray);
+}
+td > div.half-day-start {
+	margin-left: 0.8em;
+}
+td > div.half-day-end {
+	margin-right: 0.8em;
+}
+td > div {
+	border-radius: 0.3em;
+	border-style: solid;
+	border-width: 3px;
+}
+col.day {
+	width: 2.2em;
+}
+col.today {
+	width: 2.5em;
+}
+table {
+	border-collapse: separate; /* wichtig für sticky */
+	border-spacing: 0;
+	table-layout: fixed;
+}
+td {
+	text-align: center;
+	padding: 0.1em 0 !important;
+}
+
+th:first-child,
+td:first-child {
+	position: sticky;
+	left: 0;
+	z-index: 2;
+	background-color: white;
+}
+
+thead th {
+	position: sticky;
+	top: 0;
+	z-index: 10;
+	background-color: var(--gray-50);
+}
+
+thead th:first-child {
+	z-index: 11;
+}
