@@ -16,7 +16,7 @@
       <h3 class="m-0">{{ _("Leave Dashboard") }}</h3>
     </div>
     <div class="col-auto mt-1">
-      <div class="row">
+      <div class="row align-items-end">
         <div class="col-auto">
           <div class="form-inline">
             <label class="m-0" for="fromDate">{{_("From")}}:</label>
@@ -29,8 +29,16 @@
             <input class="form-control" type="date" id="toDate" />
           </div>
         </div>
+        <div class="col-auto">
+          <a class="btn btn-primary btn-sm primary-action mt-1" href="./app/leave-application/new">
+            <div class="row align-items-center">
+              <div class="col-auto pr-0"><svg class="icon  icon-xs" style="" aria-hidden="true"><use class="" href="#icon-add"></use>
+		</svg></div>
+              <div class="col-auto pl-1" id="buttonText">Add Leave Application</div>
+            </div></a>
+			
+        </div>
       </div>
-
     </div>
   </div>
 
@@ -64,6 +72,7 @@
   window.leaveDataJSON = `{{ leave_data_json }}`;
   window.leaveTypesJSON = `{{ leave_types_json }}`;
   window.holidayListsJSON = `{{ holiday_lists_json }}`;
+  document.getElementById("buttonText").textContent = `{{ button_text }}`
 </script>
 {% endblock %}
 {% block footer %}
