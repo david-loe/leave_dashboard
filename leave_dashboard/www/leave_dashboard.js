@@ -11,7 +11,7 @@ const CURRENT_USER_DATA = findAndRemove(LEAVE_DATA, (e) => e.user_id === window.
 const HOLIDAY_LISTS = JSON.parse(window.holidayListsJSON);
 for (const list in HOLIDAY_LISTS) {
     for (const holiday of HOLIDAY_LISTS[list]) {
-        holiday.date = new Date(holiday.holiday_date)
+        holiday.date = parseUTCDate(holiday.holiday_date)
     }
 }
 
@@ -84,8 +84,8 @@ onChange()
 function onChange() {
     const fromVal = fromDateInput.value;
     const toVal = toDateInput.value;
-    const from = new Date(fromVal);
-    const to = new Date(toVal);
+    const from = parseUTCDate(fromVal);
+    const to = parseUTCDate(toVal);
     const filter = employeeNameFilterInput.value
 
     if (!fromVal || !toVal) return;
@@ -158,7 +158,7 @@ function renderTable(tableData) {
  * @param {Date} to
  */
 function calcTableData(filter, from, to) {
-    let filteredEmployees = []
+    const filteredEmployees = []
     if (CURRENT_USER_DATA) {
         filteredEmployees.push(CURRENT_USER_DATA)
     }
@@ -194,12 +194,15 @@ function calcTableData(filter, from, to) {
             }
         }
         //assumption: leave applications have no overlap
+        let iR = 0
         for (let i = 0; i < dates.length; i++) {
             if (
                 entriesIndex < entries.length &&
                 entries[entriesIndex].start.valueOf() === dates[i].valueOf()
             ) {
-                row.splice(i, entries[entriesIndex].duration, entries[entriesIndex]);
+                row.splice(i - iR, entries[entriesIndex].duration, entries[entriesIndex]);
+                iR += entries[entriesIndex].duration - 1
+                i = i + entries[entriesIndex].duration - 1
                 entriesIndex += 1;
             }
         }
@@ -215,8 +218,8 @@ function calcTableData(filter, from, to) {
  * @param {Date} frameTo
  */
 function getLeaveInFrame(leave, frameFrom, frameTo) {
-    const leaveFrom = new Date(leave.from_date);
-    const leaveTo = new Date(leave.to_date);
+    const leaveFrom = parseUTCDate(leave.from_date);
+    const leaveTo = parseUTCDate(leave.to_date);
 
     // 1) Berechne die Schnitt­grenzen
     const start = leaveFrom > frameFrom ? leaveFrom : frameFrom;
@@ -226,7 +229,7 @@ function getLeaveInFrame(leave, frameFrom, frameTo) {
     if (start > end) return;
     let half_day = null
     if (leave.half_day) {
-        const half_day_date = new Date(leave.half_day_date)
+        const half_day_date = parseUTCDate(leave.half_day_date)
         if (half_day_date.valueOf() === start.valueOf()) {
             half_day = 'start'
         } else if (half_day_date.valueOf() === end.valueOf()) {
@@ -306,7 +309,7 @@ function getDatesBetween(start, end) {
     const curr = new Date(start);
     while (curr <= end) {
         dates.push(new Date(curr));
-        curr.setDate(curr.getDate() + 1);
+        curr.setUTCDate(curr.getUTCDate() + 1);
     }
     return dates;
 }
@@ -326,4 +329,16 @@ function findAndRemove(array, predicate) {
         return array.splice(index, 1)[0];
     }
     return null;
+}
+
+/**
+ * Parse of "YYYY-MM-DD" into a UTC Date.
+ * @param {string} s — e.g. "2025-07-24"
+ * @returns {Date}
+ */
+function parseUTCDate(s) {
+    const y = Number(s.slice(0, 4));
+    const m = Number(s.slice(5, 7)) - 1;  // zero‑based month
+    const d = Number(s.slice(8, 10));
+    return new Date(Date.UTC(y, m, d));
 }

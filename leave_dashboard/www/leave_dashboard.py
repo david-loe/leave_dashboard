@@ -25,7 +25,7 @@ def get_context(context):
     from_date = today - timedelta(days=settings.data_days_in_past)
     to_date = today + timedelta(days=settings.data_days_in_future)
     
-    context.settings_json = settings.as_json()
+    context.settings_json = json.dumps(settings.as_dict(), cls=DateTimeEncoder)
     leave_data = get_leave_data(from_date, to_date)
     unique_holiday_lists = set(emp['holiday_list'] for emp in leave_data)
     context.leave_data_json = json.dumps(leave_data, cls=DateTimeEncoder)
@@ -34,6 +34,7 @@ def get_context(context):
     context.leave_types_json = json.dumps(leave_types)
     leave_types.append({"className": "default-leave", "color": settings.default_leave_color})
     context.leave_types_css = build_background_border_css(leave_types)
+    context.button_text = _('Add') + ' ' + _('Leave Application')
 
 
 
