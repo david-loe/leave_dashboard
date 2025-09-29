@@ -186,11 +186,18 @@ function calcTableData(filter, from, to) {
         let entriesIndex = 0;
         const holidays = HOLIDAY_LISTS[employee.holiday_list]
         let holidayIndex = holidays.findIndex(h => h.date.valueOf() >= from)
-        //assumption: holiday list has only unique days
-        for (let i = 0; i < dates.length; i++) {
-            if (holidays[holidayIndex].date.valueOf() === dates[i].valueOf()) {
-                row[i] = { ...holidays[holidayIndex], isHoliday: true }
-                holidayIndex++
+        if (holidayIndex >= 0) {
+            //assumption: holiday list has only unique days
+            for (let i = 0; i < dates.length; i++) {
+                if (
+                    holidays[holidayIndex].date.valueOf() === dates[i].valueOf()
+                ) {
+                    row[i] = { ...holidays[holidayIndex], isHoliday: true };
+                    holidayIndex++;
+                    if (holidayIndex === holidays.length) {
+                        break;
+                    }
+                }
             }
         }
         //assumption: leave applications have no overlap
