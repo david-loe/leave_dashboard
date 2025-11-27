@@ -70,6 +70,6 @@ thead th {
 	background-color: var(--gray-50);
 }
 
-thead th:first-child {
+thead > tr#month > th:first-child {
 	z-index: 11;
 }

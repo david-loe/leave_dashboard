@@ -32,11 +32,13 @@
         <div class="col-auto">
           <a class="btn btn-primary btn-sm primary-action mt-1" href="./app/leave-application/new">
             <div class="row align-items-center">
-              <div class="col-auto pr-0"><svg class="icon  icon-xs" style="" aria-hidden="true"><use class="" href="#icon-add"></use>
-		</svg></div>
+              <div class="col-auto pr-0"><svg class="icon  icon-xs" style="" aria-hidden="true">
+                  <use class="" href="#icon-add"></use>
+                </svg></div>
               <div class="col-auto pl-1" id="buttonText">Add Leave Application</div>
-            </div></a>
-			
+            </div>
+          </a>
+
         </div>
       </div>
     </div>
@@ -51,10 +53,12 @@
         <col style="width: 170px" />
       </colgroup>
       <thead id="ganttHeader" class="text-center">
-        <tr>
-          <th>
+        <tr id="month">
+          <th rowspan="2">
             <input class="form-control" type="text" id="employeeNameFilter" />
           </th>
+        </tr>
+        <tr id="day">
         </tr>
       </thead>
       <tbody id="ganttBody"></tbody>

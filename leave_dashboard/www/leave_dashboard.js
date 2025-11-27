@@ -255,10 +255,13 @@ function getLeaveInFrame(leave, frameFrom, frameTo) {
  * @returns
  */
 function renderDateColumns(from, to) {
-    const headerRow = document.querySelector("#ganttHeader tr");
-    while (headerRow.children.length > 1) {
-        headerRow.removeChild(headerRow.lastChild);
+    const monthRow = document.querySelector("#ganttHeader tr#month");
+    while (monthRow.children.length > 1) {
+        monthRow.removeChild(monthRow.lastChild);
     }
+
+    const dayRow = document.querySelector("#ganttHeader tr#day");
+    dayRow.replaceChildren()
 
     const colgroup = document.getElementById("ganttColgroup");
     while (colgroup.children.length > 1) {
@@ -267,20 +270,26 @@ function renderDateColumns(from, to) {
 
     const dates = getDatesBetween(from, to);
     dates.forEach((date) => {
-        const th = document.createElement("th");
-        th.innerHTML = `<small>${WEEKDAY_FORMATTER.format(date)}</small><br>${DAY_FORMATTER.format(date)}`
+        // New Month
+        if (date.valueOf() === from.valueOf() || date.getUTCDate() === 1) {
+            const month = document.createElement("th");
+            const numberOfDays = 1 + Math.min(getDiffInDays(date, lastDayOfMonth(date)), getDiffInDays(date, to))
+            month.colSpan = numberOfDays
+            month.innerHTML = MONTH_FORMATTER.format(date)
+            monthRow.append(month)
+        }
+        const day = document.createElement("th");
+        day.innerHTML = `<small>${WEEKDAY_FORMATTER.format(date)}</small><br>${DAY_FORMATTER.format(date)}`
 
         const col = document.createElement("col")
         col.classList.add("day")
 
         if (date.valueOf() === TODAY.valueOf()) {
-            th.classList.add("today")
+            day.classList.add("today")
             col.classList.add("today")
         }
-        headerRow.appendChild(th);
+        dayRow.appendChild(day);
         colgroup.appendChild(col);
-
-
     });
 }
 
@@ -319,6 +328,24 @@ function getDatesBetween(start, end) {
         curr.setUTCDate(curr.getUTCDate() + 1);
     }
     return dates;
+}
+
+/**
+ * 
+ * @param {Date} startDate 
+ * @param {Date} endDate 
+ * @returns 
+ */
+function getDiffInDays(startDate, endDate) {
+    return (endDate.valueOf() - startDate.valueOf()) / (1000 * 60 * 60 * 24)
+}
+/**
+ * 
+ * @param {Date} date 
+ * @returns 
+ */
+function lastDayOfMonth(date) {
+    return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 0));
 }
 
 /**
