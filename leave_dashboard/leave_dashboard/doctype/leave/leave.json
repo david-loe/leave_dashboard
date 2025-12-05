@@ -1,0 +1,193 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{YY}-{#####}",
+ "creation": "2025-11-28 16:44:11.055818",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "employee",
+  "column_break_ovds",
+  "leave_type",
+  "section_break_tdhu",
+  "from_date",
+  "from_time",
+  "column_break_ceny",
+  "to_date",
+  "to_time",
+  "section_break_zvlw",
+  "column_break_zmig",
+  "reason",
+  "column_break_hhag",
+  "total_leave_days",
+  "section_break_ulzu",
+  "leave_approver",
+  "posting_date",
+  "column_break_jtlp",
+  "status",
+  "section_break_bgkw",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_bgkw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Leave",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ovds",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "leave_type",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Leave Type",
+   "options": "Leave Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_tdhu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "From Date",
+   "reqd": 1
+  },
+  {
+   "default": "Morning",
+   "fieldname": "from_time",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "From",
+   "options": "Morning\nNoon",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ceny",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date",
+   "reqd": 1
+  },
+  {
+   "default": "Evening",
+   "fieldname": "to_time",
+   "fieldtype": "Select",
+   "label": "To",
+   "options": "Noon\nEvening",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_ulzu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "leave_approver",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Leave Approver",
+   "options": "User"
+  },
+  {
+   "fieldname": "section_break_zvlw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Small Text",
+   "label": "Reason"
+  },
+  {
+   "fieldname": "column_break_jtlp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Open",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Open\nApproved\nRejected\nCancelled",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "total_leave_days",
+   "fieldtype": "Float",
+   "label": "Total Leave Days",
+   "non_negative": 1,
+   "precision": "1",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_zmig",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_hhag",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-12-03 16:35:53.961496",
+ "modified_by": "Administrator",
+ "module": "Leave Dashboard",
+ "name": "Leave",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

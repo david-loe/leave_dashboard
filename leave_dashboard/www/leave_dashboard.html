@@ -5,7 +5,11 @@
 {% block head %}
 {{ super() }}
 <style>
-  {{leave_types_css}}
+  {
+      {
+      leave_types_css
+    }
+  }
 </style>
 {% endblock %}
 
@@ -30,12 +34,12 @@
           </div>
         </div>
         <div class="col-auto">
-          <a class="btn btn-primary btn-sm primary-action mt-1" href="./app/leave-application/new">
+          <a class="btn btn-primary btn-sm primary-action mt-1" href="./app/leave/new">
             <div class="row align-items-center">
               <div class="col-auto pr-0"><svg class="icon  icon-xs" style="" aria-hidden="true">
                   <use class="" href="#icon-add"></use>
                 </svg></div>
-              <div class="col-auto pl-1" id="buttonText">Add Leave Application</div>
+              <div class="col-auto pl-1" id="buttonText">{{_("Add {0}".format(_("Leave")))}}</div>
             </div>
           </a>
 
@@ -54,7 +58,7 @@
       </colgroup>
       <thead id="ganttHeader" class="text-center">
         <tr id="month">
-          <th rowspan="2">
+          <th class="employee-col" rowspan="2">
             <input class="form-control" type="text" id="employeeNameFilter" />
           </th>
         </tr>
@@ -76,7 +80,6 @@
   window.leaveDataJSON = `{{ leave_data_json }}`;
   window.leaveTypesJSON = `{{ leave_types_json }}`;
   window.holidayListsJSON = `{{ holiday_lists_json }}`;
-  document.getElementById("buttonText").textContent = `{{ button_text }}`
 </script>
 {% endblock %}
 {% block footer %}

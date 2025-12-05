@@ -1,7 +1,7 @@
 app_name = "leave_dashboard"
 app_title = "Leave Dashboard"
 app_publisher = "david-loe"
-app_description = "A quick view of who\'s off, when, and why."
+app_description = "A quick view of who's off, when, and why."
 app_email = "kontakt@david-loe.de"
 app_license = "agpl-3.0"
 
@@ -43,7 +43,7 @@ app_license = "agpl-3.0"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {"Branch": "public/js/branch.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -236,9 +236,40 @@ app_license = "agpl-3.0"
 # ]
 
 # Automatically update python controller files with type annotations for this app.
-# export_python_type_annotations = True
+export_python_type_annotations = True
 
 # default_log_clearing_doctypes = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+fixtures = [
+    {
+        "doctype": "Notification",
+        "filters": [["name", "in", ["Leave Status Changed (DE)", "New Leave (DE)"]]],
+    },
+    {
+        "doctype": "Workflow",
+        "filters": [["name", "in", ["Leave Application"]]],
+    },
+    {
+        "doctype": "Custom Field",
+        "filters": [],
+        "or_filters": [
+            [
+                "name",
+                "in",
+                [
+                    "Leave Type-needs_approval",
+                    "Employee-custom_section_break_hn48z",
+                    "Employee-working_days",
+                    "Employee-leave_policies",
+                ],
+            ],
+            [
+                "dt",
+                "in",
+                ["Branch"],
+            ],
+        ],
+    },
+]

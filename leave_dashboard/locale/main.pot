@@ -1,0 +1,338 @@
+# Translations template for Leave Dashboard.
+# Copyright (C) 2025 david-loe
+# This file is distributed under the same license as the Leave Dashboard project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Leave Dashboard VERSION\n"
+"Report-Msgid-Bugs-To: kontakt@david-loe.de\n"
+"POT-Creation-Date: 2025-12-05 11:21+0000\n"
+"PO-Revision-Date: 2025-12-05 11:21+0000\n"
+"Last-Translator: kontakt@david-loe.de\n"
+"Language-Team: kontakt@david-loe.de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
+
+#: leave_dashboard/leave_dashboard/doctype/leave/leave_balance_overview.html:8
+msgid "Allocated"
+msgstr ""
+
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.js:122
+msgid "Allocated Leaves"
+msgstr ""
+
+#. Label of a Link field in DocType 'Leave'
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+msgid "Amended From"
+msgstr ""
+
+#. Option for the 'Status' (Select) field in DocType 'Leave'
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+msgid "Approved"
+msgstr ""
+
+#: leave_dashboard/leave_dashboard/doctype/leave/leave_balance_overview.html:10
+msgid "Balance"
+msgstr ""
+
+#. Option for the 'Status' (Select) field in DocType 'Leave'
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+msgid "Cancelled"
+msgstr ""
+
+#. Label of a Color field in DocType 'Leave Dashboard Leave Types'
+#: leave_dashboard/leave_dashboard/doctype/leave_dashboard_leave_types/leave_dashboard_leave_types.json
+msgid "Color"
+msgstr ""
+
+#. Name of a DocType
+#: leave_dashboard/leave_dashboard/doctype/custom_holiday/custom_holiday.json
+msgid "Custom Holiday"
+msgstr ""
+
+#. Label of a Int field in DocType 'Leave Dashboard Settings'
+#: leave_dashboard/leave_dashboard/doctype/leave_dashboard_settings/leave_dashboard_settings.json
+msgid "Data Days in Future"
+msgstr ""
+
+#. Label of a Int field in DocType 'Leave Dashboard Settings'
+#: leave_dashboard/leave_dashboard/doctype/leave_dashboard_settings/leave_dashboard_settings.json
+msgid "Data Days in Past"
+msgstr ""
+
+#. Label of a Section Break field in DocType 'Leave Dashboard Settings'
+#: leave_dashboard/leave_dashboard/doctype/leave_dashboard_settings/leave_dashboard_settings.json
+msgid "Data Limits"
+msgstr ""
+
+#. Label of a Date field in DocType 'Custom Holiday'
+#: leave_dashboard/leave_dashboard/doctype/custom_holiday/custom_holiday.json
+msgid "Date (Day & Month)"
+msgstr ""
+
+#. Label of a Color field in DocType 'Leave Dashboard Settings'
+#: leave_dashboard/leave_dashboard/doctype/leave_dashboard_settings/leave_dashboard_settings.json
+msgid "Default Leave Color"
+msgstr ""
+
+#. Label of a Link field in DocType 'Leave Settings'
+#: leave_dashboard/leave_dashboard/doctype/leave_settings/leave_settings.json
+msgid "Default Leave Policy"
+msgstr ""
+
+#. Label of a Table MultiSelect field in DocType 'Leave Settings'
+#: leave_dashboard/leave_dashboard/doctype/leave_settings/leave_settings.json
+msgid "Default Working Days"
+msgstr ""
+
+#. Label of a Link field in DocType 'Leave'
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+msgid "Employee"
+msgstr ""
+
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.py:142
+msgid "Employee {0} does not have enough leave balance ({1}) for {2} in period {3} - {4}."
+msgstr ""
+
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.py:118
+msgid "Employee {0} has already applied for {1} between {2} and {3} : {4}"
+msgstr ""
+
+#. Option for the 'To' (Select) field in DocType 'Leave'
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+msgid "Evening"
+msgstr ""
+
+#. Label of a Select field in DocType 'Leave'
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+#: leave_dashboard/www/leave_dashboard.html:26
+msgid "From"
+msgstr ""
+
+#. Label of a Date field in DocType 'Leave'
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+msgid "From Date"
+msgstr ""
+
+#. Label of a Int field in DocType 'Weekday'
+#: leave_dashboard/leave_dashboard/doctype/weekday/weekday.json
+msgid "Index"
+msgstr ""
+
+#. Label of a Data field in DocType 'Custom Holiday'
+#: leave_dashboard/leave_dashboard/doctype/custom_holiday/custom_holiday.json
+msgid "Label"
+msgstr ""
+
+#. Name of a DocType
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+#: leave_dashboard/www/leave_dashboard.html:42
+msgid "Leave"
+msgstr ""
+
+#. Label of a Link field in DocType 'Leave'
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+msgid "Leave Approver"
+msgstr ""
+
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.py:77
+msgid "Leave Approver is Mandatory for {0}"
+msgstr ""
+
+#: leave_dashboard/www/leave_dashboard.html:3
+#: leave_dashboard/www/leave_dashboard.html:20
+msgid "Leave Dashboard"
+msgstr ""
+
+#. Name of a DocType
+#: leave_dashboard/leave_dashboard/doctype/leave_dashboard_leave_types/leave_dashboard_leave_types.json
+msgid "Leave Dashboard Leave Types"
+msgstr ""
+
+#. Name of a DocType
+#: leave_dashboard/leave_dashboard/doctype/leave_dashboard_settings/leave_dashboard_settings.json
+msgid "Leave Dashboard Settings"
+msgstr ""
+
+#. Name of a DocType
+#: leave_dashboard/leave_dashboard/doctype/leave_settings/leave_settings.json
+msgid "Leave Settings"
+msgstr ""
+
+#. Label of a Link field in DocType 'Leave'
+#. Label of a Link field in DocType 'Leave Dashboard Leave Types'
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+#: leave_dashboard/leave_dashboard/doctype/leave/leave_balance_overview.html:7
+#: leave_dashboard/leave_dashboard/doctype/leave_dashboard_leave_types/leave_dashboard_leave_types.json
+msgid "Leave Type"
+msgstr ""
+
+#. Label of a Table field in DocType 'Leave Dashboard Settings'
+#: leave_dashboard/leave_dashboard/doctype/leave_dashboard_settings/leave_dashboard_settings.json
+msgid "Leave Type Styles"
+msgstr ""
+
+#. Description of the 'Index' (Int) field in DocType 'Weekday'
+#: leave_dashboard/leave_dashboard/doctype/weekday/weekday.json
+msgid "Monday == 0 ... Sunday == 6"
+msgstr ""
+
+#. Option for the 'From' (Select) field in DocType 'Leave'
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+msgid "Morning"
+msgstr ""
+
+#. Option for the 'Time' (Select) field in DocType 'Custom Holiday'
+#: leave_dashboard/leave_dashboard/doctype/custom_holiday/custom_holiday.json
+msgid "Morning -> Evening"
+msgstr ""
+
+#. Option for the 'Time' (Select) field in DocType 'Custom Holiday'
+#: leave_dashboard/leave_dashboard/doctype/custom_holiday/custom_holiday.json
+msgid "Morning -> Noon"
+msgstr ""
+
+#: leave_dashboard/leave_dashboard/doctype/leave/leave_balance_overview.html:30
+msgid "No leaves have been allocated."
+msgstr ""
+
+#. Option for the 'From' (Select) field in DocType 'Leave'
+#. Option for the 'To' (Select) field in DocType 'Leave'
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+msgid "Noon"
+msgstr ""
+
+#. Option for the 'Time' (Select) field in DocType 'Custom Holiday'
+#: leave_dashboard/leave_dashboard/doctype/custom_holiday/custom_holiday.json
+msgid "Noon -> Evening"
+msgstr ""
+
+#. Option for the 'Status' (Select) field in DocType 'Leave'
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+msgid "Open"
+msgstr ""
+
+#. Label of a Section Break field in DocType 'Leave Settings'
+#: leave_dashboard/leave_dashboard/doctype/leave_settings/leave_settings.json
+msgid "Period"
+msgstr ""
+
+#. Label of a Select field in DocType 'Leave Settings'
+#: leave_dashboard/leave_dashboard/doctype/leave_settings/leave_settings.json
+msgid "Period Length in Month"
+msgstr ""
+
+#. Label of a Date field in DocType 'Leave Settings'
+#: leave_dashboard/leave_dashboard/doctype/leave_settings/leave_settings.json
+msgid "Period Start"
+msgstr ""
+
+#. Label of a Date field in DocType 'Leave'
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+msgid "Posting Date"
+msgstr ""
+
+#. Label of a Small Text field in DocType 'Leave'
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+msgid "Reason"
+msgstr ""
+
+#. Option for the 'Status' (Select) field in DocType 'Leave'
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+msgid "Rejected"
+msgstr ""
+
+#. Label of a Select field in DocType 'Leave'
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+msgid "Status"
+msgstr ""
+
+#. Label of a Section Break field in DocType 'Leave Dashboard Settings'
+#: leave_dashboard/leave_dashboard/doctype/leave_dashboard_settings/leave_dashboard_settings.json
+msgid "Style"
+msgstr ""
+
+#. Name of a role
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+#: leave_dashboard/leave_dashboard/doctype/leave_dashboard_settings/leave_dashboard_settings.json
+#: leave_dashboard/leave_dashboard/doctype/leave_settings/leave_settings.json
+#: leave_dashboard/leave_dashboard/doctype/weekday/weekday.json
+msgid "System Manager"
+msgstr ""
+
+#. Label of a Data field in DocType 'Leave Dashboard Leave Types'
+#: leave_dashboard/leave_dashboard/doctype/leave_dashboard_leave_types/leave_dashboard_leave_types.json
+msgid "Text"
+msgstr ""
+
+#. Label of a Select field in DocType 'Custom Holiday'
+#: leave_dashboard/leave_dashboard/doctype/custom_holiday/custom_holiday.json
+msgid "Time"
+msgstr ""
+
+#. Label of a Select field in DocType 'Leave'
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+msgid "To"
+msgstr ""
+
+#. Label of a Date field in DocType 'Leave'
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+msgid "To Date"
+msgstr ""
+
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.py:72
+msgid "To and from date cannot be the same and both on noon"
+msgstr ""
+
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.py:64
+msgid "To date cannot be before from date"
+msgstr ""
+
+#. Label of a Float field in DocType 'Leave'
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+msgid "Total Leave Days"
+msgstr ""
+
+#: leave_dashboard/www/leave_dashboard.html:32
+msgid "Until"
+msgstr ""
+
+#: leave_dashboard/leave_dashboard/doctype/leave/leave_balance_overview.html:9
+msgid "Used"
+msgstr ""
+
+#. Label of a Int field in DocType 'Leave Dashboard Settings'
+#: leave_dashboard/leave_dashboard/doctype/leave_dashboard_settings/leave_dashboard_settings.json
+msgid "View Days in Future"
+msgstr ""
+
+#. Label of a Int field in DocType 'Leave Dashboard Settings'
+#: leave_dashboard/leave_dashboard/doctype/leave_dashboard_settings/leave_dashboard_settings.json
+msgid "View Days in Past"
+msgstr ""
+
+#. Name of a DocType
+#: leave_dashboard/leave_dashboard/doctype/weekday/weekday.json
+msgid "Weekday"
+msgstr ""
+
+#. Name of a DocType
+#: leave_dashboard/leave_dashboard/doctype/working_day/working_day.json
+msgid "Working Day"
+msgstr ""
+
+#. Description of the 'Date (Day & Month)' (Date) field in DocType 'Custom
+#. Holiday'
+#. Description of the 'Period Start' (Date) field in DocType 'Leave Settings'
+#: leave_dashboard/leave_dashboard/doctype/custom_holiday/custom_holiday.json
+#: leave_dashboard/leave_dashboard/doctype/leave_settings/leave_settings.json
+msgid "Year will be ignored"
+msgstr ""
+
+#: leave_dashboard/www/leave_dashboard.py:17
+msgid "You need to be logged in to access this page"
+msgstr ""
+

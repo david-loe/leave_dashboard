@@ -1,0 +1,31 @@
+{% if not jQuery.isEmptyObject(leave_balances) %}
+<div class="table-responsive">
+
+	<table class="table table-bordered table-sm w-auto">
+		<thead>
+			<tr>
+				<th>{{ __("Leave Type") }}</th>
+				<th>{{ __("Allocated") }}</th>
+				<th>{{ __("Used") }}</th>
+				<th>{{ __("Balance") }}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for(const [key, value] of Object.entries(leave_balances)) { %}
+			{% let color = cint(value["balance"]) > 0 ? "green" : "red" %}
+			<tr>
+				<td> {%= key %} </td>
+				<td class="text-right"> {%= value["allocated"] + (value["taken_from_prev"] || 0) %} </td>
+				<td class="text-right"> {%= value["taken"] %} </td>
+				<td class="text-right" style="color: {{ color }}"> {%= (value["allocated"] + (value["taken_from_prev"]
+					||
+					0)) === 0 ? "" : value["balance"] %} </td>
+			</tr>
+			{% } %}
+		</tbody>
+	</table>
+</div>
+
+{% else %}
+<p style="margin-top: 30px;"> {{ __("No leaves have been allocated.") }} </p>
+{% endif %}

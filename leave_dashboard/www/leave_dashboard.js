@@ -1,19 +1,20 @@
+/** @typedef {{from_date: string, from_time: "Morning" | "Noon", to_date: string, to_time: "Noon" | "Evening", employee: string, leave_type: string}} RawLeave */
+
+/** @typedef {{name: string,first_name: string, last_name: string, employee_name:string, branch: string, user_id: string, holiday_weekdays: {[key: string]: true} leaves: RawLeave[]}} RawEmployee */
+
 /**
- * @type {{name: string,first_name: string, last_name: string, employee_name:string, holiday_list: string, user_id: string, leaves: {from_date: string, to_date: string, employee: string, leave_type: string, half_day: boolean, half_day_date: string}[]}[]}
+ * @type {RawEmployee[]}
  */
 const LEAVE_DATA = JSON.parse(window.leaveDataJSON);
 
 const CURRENT_USER_DATA = findAndRemove(LEAVE_DATA, (e) => e.user_id === window.userId)
 
+/** @typedef {{country_holidays: {[key: string]: string}, custom_holidays: {[key: string]:{date: string, label: string, time: "Morning -> Evening" | "Morning -> Noon" | "Noon -> Evening"}}}} HolidayList */
+
 /**
- * @type {{[key: string]: {date: Date, description: string, holiday_date: string}[]}}
+ * @type {{[key: string]: HolidayList}}
  */
 const HOLIDAY_LISTS = JSON.parse(window.holidayListsJSON);
-for (const list in HOLIDAY_LISTS) {
-    for (const holiday of HOLIDAY_LISTS[list]) {
-        holiday.date = parseUTCDate(holiday.holiday_date)
-    }
-}
 
 /**
  * @type {{data_days_in_past: number, data_days_in_future: number, view_days_in_past: number, view_days_in_future: number}}
@@ -125,18 +126,16 @@ function renderTable(tableData) {
         const th = document.createElement("th");
         th.textContent = employee.employee_name;
         th.classList.add('text-truncate')
+        th.classList.add('employee-col')
         tr.appendChild(th);
         for (const col of employee.row) {
             const td = document.createElement("td");
             if (col) {
+                td.colSpan = col.duration * 2
                 if (col.isHoliday) {
                     td.classList.add("holiday")
-                } else {
-                    td.colSpan = col.duration
+                } else if (col.isLeave) {
                     const div = document.createElement("div");
-                    if (col.half_day) {
-                        div.classList.add('half-day-' + col.half_day)
-                    }
                     div.classList.add(LEAVE_TYPE_CLASS_MAP[col.leave_type] || 'default-leave')
                     div.textContent = LEAVE_TYPE_TEXT_MAP[col.leave_type] || col.leave_type.substring(0, 3)
                     div.title = col.leave_type
@@ -182,35 +181,53 @@ function calcTableData(filter, from, to) {
         }
         entries.sort((a, b) => a.from_date.valueOf() - b.from_date.valueOf());
 
-        const row = new Array(dates.length).fill(null);
-        let entriesIndex = 0;
-        const holidays = HOLIDAY_LISTS[employee.holiday_list]
-        let holidayIndex = holidays.findIndex(h => h.date.valueOf() >= from)
-        if (holidayIndex >= 0) {
-            //assumption: holiday list has only unique days
-            for (let i = 0; i < dates.length; i++) {
-                if (
-                    holidays[holidayIndex].date.valueOf() === dates[i].valueOf()
-                ) {
-                    row[i] = { ...holidays[holidayIndex], isHoliday: true };
-                    holidayIndex++;
-                    if (holidayIndex === holidays.length) {
-                        break;
-                    }
-                }
-            }
-        }
+        const row = new Array(dates.length * 2).fill(null);
+        const holidays = HOLIDAY_LISTS[employee.branch]
+
         //assumption: leave applications have no overlap
-        let iR = 0
-        for (let i = 0; i < dates.length; i++) {
+        let entriesIndex = 0;
+        let iC = 0;
+        for (let i = 0; i < row.length; i++) {
+            const date = dates[((i + iC) / 2) | 0]
+            const time = (i + iC) % 2 === 0 ? "Morning" : "Noon"
+            // Leaves
             if (
                 entriesIndex < entries.length &&
-                entries[entriesIndex].start.valueOf() === dates[i].valueOf()
+                entries[entriesIndex].start.valueOf() === date.valueOf() &&
+                entries[entriesIndex].startTime === time
             ) {
-                row.splice(i - iR, entries[entriesIndex].duration, entries[entriesIndex]);
-                iR += entries[entriesIndex].duration - 1
-                i = i + entries[entriesIndex].duration - 1
+                row.splice(i, entries[entriesIndex].duration * 2, { ...entries[entriesIndex], isLeave: true });
+                iC += (entries[entriesIndex].duration * 2) - 1;
                 entriesIndex += 1;
+                continue
+            }
+            // Holidays
+            YMD = formatDateAsUTCISO(date)
+            let duration = 1
+            if (employee.holiday_weekdays[YMD]) {
+                row.splice(i, duration * 2, { isWeeklyHoliday: true, isHoliday: true, duration });
+                iC += (duration * 2) - 1;
+                continue
+            }
+            let holiday = holidays.country_holidays[YMD]
+            if (holiday) {
+                row.splice(i, duration * 2, { label: holiday, isHoliday: true, duration });
+                iC += (duration * 2) - 1;
+                continue
+            }
+            let custom_holiday = holidays.custom_holidays[YMD]
+            if (custom_holiday && custom_holiday.time.startsWith(time)) {
+                duration = custom_holiday.time === "Morning -> Evening" ? 1 : 0.5
+                row.splice(i, duration * 2, { ...custom_holiday, isHoliday: true, duration });
+                iC += (duration * 2) - 1;
+                continue
+            }
+
+            //combine half-days to one if nothing in
+            if (time == "Noon" && row[i - 1] === null) {
+                row.splice(i - 1, 2, { duration });
+                iC += 1;
+                i -= 1;
             }
         }
         data.push({ "employee_name": employee.employee_name, "row": row })
@@ -220,32 +237,34 @@ function calcTableData(filter, from, to) {
 
 /**
  *
- * @param {{from_date: string, to_date: string, employee: string, leave_type: string, half_day: boolean, half_day_date: string}} leave
+ * @param {RawLeave} leave
  * @param {Date} frameFrom
  * @param {Date} frameTo
  */
 function getLeaveInFrame(leave, frameFrom, frameTo) {
     const leaveFrom = parseUTCDate(leave.from_date);
     const leaveTo = parseUTCDate(leave.to_date);
+    let start = leaveFrom
+    let end = leaveTo
+    let startTime = leave.from_time
+    let endTime = leave.to_time
 
-    // 1) Berechne die Schnitt­grenzen
-    const start = leaveFrom > frameFrom ? leaveFrom : frameFrom;
-    const end = leaveTo < frameTo ? leaveTo : frameTo;
-
-    // 2) Kein Über­schnitt, wenn Start nach Ende liegt
-    if (start > end) return;
-    let half_day = null
-    if (leave.half_day) {
-        const half_day_date = parseUTCDate(leave.half_day_date)
-        if (half_day_date.valueOf() === start.valueOf()) {
-            half_day = 'start'
-        } else if (half_day_date.valueOf() === end.valueOf()) {
-            half_day = 'end'
-        }
-
+    if (leaveFrom > frameTo || leaveTo < frameFrom) {
+        return
     }
-    const duration = getDiffInDays(start, end) + 1;
-    return { ...leave, from_date: leaveFrom, to_date: leaveTo, start, duration, half_day };
+    if (leaveFrom < frameFrom) {
+        start = frameFrom;
+        startTime = "Morning";
+    }
+    if (leaveTo > frameTo) {
+        end = frameTo;
+        endTime = "Evening";
+    }
+
+    let duration = getDiffInDays(start, end) + 1;
+    if (startTime == "Noon") duration -= 0.5
+    if (endTime == "Noon") duration -= 0.5
+    return { ...leave, from_date: leaveFrom, to_date: leaveTo, start, end, startTime, endTime, duration };
 }
 
 /**
@@ -274,15 +293,18 @@ function renderDateColumns(from, to) {
         if (date.valueOf() === from.valueOf() || date.getUTCDate() === 1) {
             const month = document.createElement("th");
             const numberOfDays = 1 + Math.min(getDiffInDays(date, lastDayOfMonth(date)), getDiffInDays(date, to))
-            month.colSpan = numberOfDays
+            month.colSpan = numberOfDays * 2
+            month.classList.add("month")
             month.innerHTML = MONTH_FORMATTER.format(date)
             monthRow.append(month)
         }
         const day = document.createElement("th");
         day.innerHTML = `<small>${WEEKDAY_FORMATTER.format(date)}</small><br>${DAY_FORMATTER.format(date)}`
+        day.colSpan = 2
+        day.classList.add("date")
 
         const col = document.createElement("col")
-        col.classList.add("day")
+        col.classList.add("half-day")
 
         if (date.valueOf() === TODAY.valueOf()) {
             day.classList.add("today")
@@ -290,19 +312,30 @@ function renderDateColumns(from, to) {
         }
         dayRow.appendChild(day);
         colgroup.appendChild(col);
+        colgroup.appendChild(col.cloneNode());
     });
 }
 
 /**
- * Formatiert Date als "YYYY-MM-DD"
+ * Format Date as "YYYY-MM-DD"
  * @param {Date} date
  * @returns string
  */
 function formatDateAsISO(date) {
-    const y = date.getFullYear();
-    const m = String(date.getMonth() + 1).padStart(2, "0");
-    const d = String(date.getDate()).padStart(2, "0");
-    return `${y}-${m}-${d}`;
+    return date.getFullYear() + "-" +
+        String(date.getMonth() + 1).padStart(2, "0") + "-" +
+        String(date.getDate()).padStart(2, "0");
+}
+
+/**
+ * Format Date as UTC "YYYY-MM-DD"
+ * @param {Date} date
+ * @returns string
+ */
+function formatDateAsUTCISO(date) {
+    return date.getUTCFullYear() + "-" +
+        String(date.getUTCMonth() + 1).padStart(2, "0") + "-" +
+        String(date.getUTCDate()).padStart(2, "0");
 }
 
 /**

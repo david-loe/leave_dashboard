@@ -14,7 +14,8 @@ body {
 	display: flex;
 	flex-direction: column;
 	flex: 1;
-	min-height: 0; /* Wichtig, damit der gantt-Bereich korrekt schrumpfen kann */
+	min-height: 0;
+	/* Wichtig, damit der gantt-Bereich korrekt schrumpfen kann */
 }
 
 #gantt {
@@ -25,31 +26,32 @@ body {
 th.today {
 	background-color: var(--bg-dark-blue);
 }
+
 td.holiday {
 	background-color: var(--bg-gray);
 }
-td > div.half-day-start {
-	margin-left: 0.8em;
-}
-td > div.half-day-end {
-	margin-right: 0.8em;
-}
-td > div {
+
+td>div {
 	border-radius: 0.3em;
 	border-style: solid;
 	border-width: 3px;
 }
-col.day {
-	width: 2.2em;
+
+col.half-day {
+	width: 1.2em;
 }
+
 col.today {
-	width: 2.5em;
+	width: 1.4em;
 }
+
 table {
-	border-collapse: separate; /* wichtig für sticky */
+	border-collapse: separate;
+	/* wichtig für sticky */
 	border-spacing: 0;
 	table-layout: fixed;
 }
+
 td {
 	text-align: center;
 	padding: 0.1em 0 !important;
@@ -60,16 +62,26 @@ td:first-child {
 	position: sticky;
 	left: 0;
 	z-index: 2;
-	background-color: white;
 }
 
 thead th {
 	position: sticky;
 	top: 0;
 	z-index: 10;
+}
+
+.employee-col {
+	background-color: white;
+}
+
+.month {
 	background-color: var(--gray-50);
 }
 
-thead > tr#month > th:first-child {
+.date {
+	background-color: var(--gray-50);
+}
+
+thead>tr#month>th:first-child {
 	z-index: 11;
 }
