@@ -1,5 +1,11 @@
 {
- "actions": [],
+ "actions": [
+  {
+   "action": "leave_dashboard.leave_dashboard.doctype.leave_settings.leave_settings.migrate_from_hrms_leave_applications",
+   "action_type": "Server Action",
+   "label": "Migrate From HRMS"
+  }
+ ],
  "allow_rename": 1,
  "creation": "2025-11-28 16:10:48.199139",
  "doctype": "DocType",
@@ -43,7 +49,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-12-05 14:13:59.499116",
+ "modified": "2025-12-08 10:29:11.621610",
  "modified_by": "Administrator",
  "module": "Leave Dashboard",
  "name": "Leave Settings",

@@ -56,6 +56,7 @@ class Leave(Document):
         self.validate_approver()
         self.validate_leave_overlap()
         self.validate_enough_leave_balance()
+        self.set_total_leave_days()
 
     def on_update(self):
         self.auto_approve_and_submit()
@@ -77,7 +78,7 @@ class Leave(Document):
             if not self.leave_approver:
                 frappe.throw((_("Leave Approver is Mandatory for {0}").format(self.leave_type)), frappe.MandatoryError)
         else:
-            self.leave_approver == None
+            self.leave_approver = None
 
     def auto_approve_and_submit(self):
         if self.docstatus == 0 and self.status == "Open" and not get_needs_approval(self.leave_type):
@@ -149,8 +150,19 @@ class Leave(Document):
                 )
                 frappe.throw(msg, InsufficientLeaveBalanceError)
 
-    def on_doctype_update():
-        frappe.db.add_index("Leave Application", ["employee", "from_date", "to_date"])
+    def set_total_leave_days(self):
+        self.total_leave_days = get_number_of_leave_days(
+            employee=self.employee,
+            leave_type=self.leave_type,
+            from_date=self.from_date,
+            from_time=self.from_time,
+            to_date=self.to_date,
+            to_time=self.to_time,
+        )
+
+
+def on_doctype_update():
+    frappe.db.add_index("Leave Application", ["employee", "from_date", "to_date"])
 
 
 @frappe.whitelist()
@@ -188,7 +200,7 @@ def get_number_of_leave_days(
 
 @frappe.whitelist()
 def get_leave_balance_overview(employee: str, date: DateTimeLikeObject | None = None):
-    period_start, period_end = get_period(getdate(date) if date else now_datetime())
+    period_start, period_end = get_period(getdate(date) if date else now_datetime().date())
     return get_leave_balance(employee, period_start, period_end, None)
 
 
@@ -293,8 +305,8 @@ def get_holiday_weekdays(employee: str, from_date: datetime.date, to_date: datet
         for i, key in enumerate(weekday_keys):
             if rule[key] == 1:
                 holiday_weekdays.discard(i)
-        rules.append({"valid_from": rule.valid_from, "holiday_weekdays": holiday_weekdays})
-        found_rule_before_from_date = rule.valid_from <= from_date
+        rules.append({"valid_from": rule["valid_from"], "holiday_weekdays": holiday_weekdays})
+        found_rule_before_from_date = rule["valid_from"] <= from_date
         if found_rule_before_from_date:
             break
 
@@ -494,20 +506,6 @@ def get_number_of_allocated_leaves(
             last_valid_from = rule["valid_from"]
 
     return sums
-
-
-def get_leave_assignments_from_employee_policy(employee_policy_name: str | None, leave_type: str | None = None):
-    result = []
-    policy_name = employee_policy_name
-    if not policy_name:
-        policy_name = frappe.db.get_single_value("Leave Settings", "default_leave_policy")
-
-    if policy_name:
-        filter = {"parent": policy_name, "parenttype": "Leave Policy"}
-        if leave_type:
-            filter["leave_type"] = leave_type
-        result = frappe.db.get_all("Leave Policy Detail", filters=filter, fields=["leave_type", "annual_allocation"])
-    return result
 
 
 def get_default_holiday_weekdays(branch: str):
