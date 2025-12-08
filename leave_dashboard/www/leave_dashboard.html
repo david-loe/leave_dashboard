@@ -5,11 +5,7 @@
 {% block head %}
 {{ super() }}
 <style>
-  {
-      {
-      leave_types_css
-    }
-  }
+  {{leave_types_css}}
 </style>
 {% endblock %}
 
@@ -39,7 +35,7 @@
               <div class="col-auto pr-0"><svg class="icon  icon-xs" style="" aria-hidden="true">
                   <use class="" href="#icon-add"></use>
                 </svg></div>
-              <div class="col-auto pl-1" id="buttonText">{{_("Add {0}".format(_("Leave")))}}</div>
+              <div class="col-auto pl-1" id="buttonText">{{_("Add {0}").format(_("Leave"))}}</div>
             </div>
           </a>
 

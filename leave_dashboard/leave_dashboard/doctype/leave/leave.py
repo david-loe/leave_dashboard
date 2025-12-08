@@ -11,6 +11,7 @@ from frappe.query_builder import Order
 from hrms.hr.utils import validate_active_employee
 from frappe.utils import (
     DateTimeLikeObject,
+    cint,
     date_diff,
     formatdate,
     get_link_to_form,
@@ -360,7 +361,7 @@ def get_leave_balance(
             "Leave Type", leave_type_key, ["is_carry_forward", "maximum_carry_forwarded_leaves"]
         )
         if is_carry_forward and result[leave_type_key]["allocated"] != 0:
-            period_length = int(frappe.db.get_single_value("Leave Settings", "period_length"))
+            period_length = cint(frappe.db.get_single_value("Leave Settings", "period_length"), 12)
             number_of_leaves_prev_not_taken = max(
                 get_leave_balance(
                     employee,
@@ -487,7 +488,7 @@ def get_number_of_allocated_leaves(
     ).run(as_dict=True)
 
     sums = {}
-    period_length = int(frappe.db.get_single_value("Leave Settings", "period_length"))
+    period_length = cint(frappe.db.get_single_value("Leave Settings", "period_length"), 12)
     last_valid_from = None
     for rule in leave_policy_rules:
         if last_valid_from and last_valid_from > rule["valid_from"]:
@@ -521,7 +522,7 @@ def get_default_holiday_weekdays(branch: str):
 
 def get_period(date: datetime.date, period_offset: int = 0):
     period_start = frappe.db.get_single_value("Leave Settings", "period_start")
-    period_length = int(frappe.db.get_single_value("Leave Settings", "period_length"))
+    period_length = cint(frappe.db.get_single_value("Leave Settings", "period_length"), 12)
 
     normalized_start = datetime.date(date.year - 1, period_start.month, period_start.day)
     # Compute how many months passed since this normalized start
