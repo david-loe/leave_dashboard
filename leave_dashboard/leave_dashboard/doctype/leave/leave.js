@@ -36,6 +36,7 @@ frappe.ui.form.on("Leave", {
     },
     employee: function (frm) {
         frm.trigger("calculate_total_days");
+        frm.trigger("set_leave_approver");
         frm.trigger("make_dashboard");
     },
     leave_type: function (frm) {
@@ -101,6 +102,21 @@ frappe.ui.form.on("Leave", {
                     if (r) {
                         frm.toggle_reqd("leave_approver", r.message);
                         frm.toggle_display("leave_approver", r.message)
+                    }
+                },
+            });
+        }
+    },
+    set_leave_approver: function (frm) {
+        if (frm.doc.docstatus == 0 && frm.doc.employee) {
+            return frappe.call({
+                method: "hrms.hr.doctype.leave_application.leave_application.get_leave_approver",
+                args: {
+                    employee: frm.doc.employee,
+                },
+                callback: function (r) {
+                    if (r && r.message) {
+                        frm.set_value("leave_approver", r.message);
                     }
                 },
             });
