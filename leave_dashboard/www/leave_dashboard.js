@@ -203,29 +203,42 @@ function calcTableData(filter, from, to) {
             }
             // Holidays
             YMD = formatDateAsUTCISO(date)
-            let duration = 1
             if (employee.holiday_weekdays[YMD]) {
-                row.splice(i, duration * 2, { isWeeklyHoliday: true, isHoliday: true, duration });
-                iC += (duration * 2) - 1;
+                if (time === "Noon" && row[i - 1]?.isHoliday) {
+                    row.splice(i - 1, 2, { isWeeklyHoliday: true, isHoliday: true, duration: 1 });
+                    iC += 1;
+                    i -= 1;
+                } else {
+                    row[i] = { isWeeklyHoliday: true, isHoliday: true, duration: 0.5 }
+                }
                 continue
             }
             let holiday = holidays.country_holidays[YMD]
             if (holiday) {
-                row.splice(i, duration * 2, { label: holiday, isHoliday: true, duration });
-                iC += (duration * 2) - 1;
+                if (time === "Noon" && row[i - 1]?.isHoliday) {
+                    row.splice(i - 1, 2, { label: holiday, isHoliday: true, duration: 1 });
+                    iC += 1;
+                    i -= 1;
+                } else {
+                    row[i] = { label: holiday, isHoliday: true, duration: 0.5 }
+                }
                 continue
             }
             let custom_holiday = holidays.custom_holidays[YMD]
-            if (custom_holiday && custom_holiday.time.startsWith(time)) {
-                duration = custom_holiday.time === "Morning -> Evening" ? 1 : 0.5
-                row.splice(i, duration * 2, { ...custom_holiday, isHoliday: true, duration });
-                iC += (duration * 2) - 1;
+            if (custom_holiday && !((custom_holiday.time === "Noon -> Evening" && time === "Morning") || custom_holiday.time === "Morning -> Noon" && time === "Noon")) {
+                if (time === "Noon" && row[i - 1]?.isHoliday) {
+                    row.splice(i - 1, 2, { ...custom_holiday, isHoliday: true, duration: 1 });
+                    iC += 1;
+                    i -= 1;
+                } else {
+                    row[i] = { ...custom_holiday, isHoliday: true, duration: 0.5 }
+                }
                 continue
             }
 
             //combine half-days to one if nothing in
             if (time == "Noon" && row[i - 1] === null) {
-                row.splice(i - 1, 2, { duration });
+                row.splice(i - 1, 2, { duration: 1 });
                 iC += 1;
                 i -= 1;
             }
