@@ -136,11 +136,15 @@ class Leave(Document):
             return
         leave_parts = split_into_periods(getdate(self.from_date), self.from_time, getdate(self.to_date), self.to_time)
         for part in leave_parts:
-            balance = get_leave_balance(self.employee, part["period"][0], part["period"][1], self.leave_type)[
-                self.leave_type
-            ]["balance"]
-            if not self.name:
-                balance -= get_number_of_leave_days(self.employee, self.leave_type, **part["leave"])
+            balance = get_leave_balance(
+                self.employee,
+                part["period"][0],
+                part["period"][1],
+                self.leave_type,
+                False,
+                [self.name] if self.name else [],
+            )[self.leave_type]["balance"]
+            balance -= get_number_of_leave_days(self.employee, self.leave_type, **part["leave"])
             if balance < 0:
                 msg = _("Employee {0} does not have enough leave balance ({1}) for {2} in period {3} - {4}.").format(
                     self.employee,
@@ -336,6 +340,7 @@ def get_leave_balance(
     period_end: datetime.date,
     leave_type: str | None,
     is_carry_forward_child=False,
+    exclude_names: list[str] = [],
 ):
     result = {}
     allocations = get_number_of_allocated_leaves(
@@ -349,7 +354,7 @@ def get_leave_balance(
             "taken_from_prev": None,
         }
 
-    taken = get_number_of_taken_leaves(employee, period_start, period_end, leave_type)
+    taken = get_number_of_taken_leaves(employee, period_start, period_end, leave_type, exclude_names)
     for leave_type_key in taken:
         if leave_type_key not in result:
             result[leave_type_key] = {"allocated": 0, "balance": 0, "taken": 0, "taken_from_prev": None}
@@ -369,6 +374,7 @@ def get_leave_balance(
                     period_end - relativedelta(months=period_length),
                     leave_type_key,
                     True,
+                    exclude_names,
                 )[leave_type_key]["balance"],
                 0,
             )
@@ -391,7 +397,11 @@ def get_leave_balance(
 
 
 def get_number_of_taken_leaves(
-    employee: str, period_start: datetime.date, period_end: datetime.date, leave_type: str | None
+    employee: str,
+    period_start: datetime.date,
+    period_end: datetime.date,
+    leave_type: str | None,
+    exclude_names: list[str] = [],
 ):
     def get_number_of_days_in_period(leave_list: list[dict], p_start: datetime.date, p_end: datetime.date) -> float:
         total = 0
@@ -418,6 +428,8 @@ def get_number_of_taken_leaves(
     baseQ = Leave.employee == employee
     if leave_type:
         baseQ = baseQ & (Leave.leave_type == leave_type)
+    if exclude_names:
+        baseQ = baseQ & (Leave.name.notin(exclude_names))
     leaves = (
         frappe.qb.from_(Leave)
         .select(
