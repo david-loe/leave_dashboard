@@ -141,7 +141,6 @@ class Leave(Document):
                 part["period"][0],
                 part["period"][1],
                 self.leave_type,
-                False,
                 [self.name] if self.name else [],
             )[self.leave_type]["balance"]
             balance -= get_number_of_leave_days(self.employee, self.leave_type, **part["leave"])
@@ -339,13 +338,10 @@ def get_leave_balance(
     period_start: datetime.date,
     period_end: datetime.date,
     leave_type: str | None,
-    is_carry_forward_child=False,
     exclude_names: list[str] = [],
 ):
     result = {}
-    allocations = get_number_of_allocated_leaves(
-        employee, period_start, period_end, leave_type, not is_carry_forward_child
-    )
+    allocations = get_number_of_allocated_leaves(employee, period_start, period_end, leave_type)
     for leave_type_key in allocations:
         result[leave_type_key] = {
             "allocated": allocations[leave_type_key],
@@ -373,7 +369,6 @@ def get_leave_balance(
                     period_start - relativedelta(months=period_length),
                     period_end - relativedelta(months=period_length),
                     leave_type_key,
-                    True,
                     exclude_names,
                 )[leave_type_key]["balance"],
                 0,
@@ -477,7 +472,7 @@ def get_number_of_taken_leaves(
 
 
 def get_number_of_allocated_leaves(
-    employee: str, period_start: datetime.date, period_end: datetime.date, leave_type: str | None, allocate_if_not=True
+    employee: str, period_start: datetime.date, period_end: datetime.date, leave_type: str | None
 ):
     Employee_Leave_Policies = frappe.qb.DocType("Employee Leave Policies")
     Leave_Policy_Detail = frappe.qb.DocType("Leave Policy Detail")
