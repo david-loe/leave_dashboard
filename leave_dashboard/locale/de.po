@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Leave Dashboard VERSION\n"
 "Report-Msgid-Bugs-To: kontakt@david-loe.de\n"
-"POT-Creation-Date: 2025-12-05 11:20+0000\n"
+"POT-Creation-Date: 2025-12-17 09:09+0000\n"
 "PO-Revision-Date: 2025-12-04 08:40+0000\n"
 "Last-Translator: kontakt@david-loe.de\n"
 "Language: de\n"
@@ -18,11 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.13.1\n"
 
+#: leave_dashboard/www/leave_dashboard.html:38
+msgid "Add {0}"
+msgstr ""
+
 #: leave_dashboard/leave_dashboard/doctype/leave/leave_balance_overview.html:8
 msgid "Allocated"
 msgstr ""
 
-#: leave_dashboard/leave_dashboard/doctype/leave/leave.js:122
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.js:140
 msgid "Allocated Leaves"
 msgstr ""
 
@@ -80,26 +84,23 @@ msgstr "Datum (Tag & Monat)"
 msgid "Default Leave Color"
 msgstr "Standardfarbe für Abwesenheiten"
 
-#. Label of a Link field in DocType 'Leave Settings'
-#: leave_dashboard/leave_dashboard/doctype/leave_settings/leave_settings.json
-msgid "Default Leave Policy"
-msgstr "Standard-Abwesenheitsrichtlinie"
-
-#. Label of a Table MultiSelect field in DocType 'Leave Settings'
-#: leave_dashboard/leave_dashboard/doctype/leave_settings/leave_settings.json
-msgid "Default Working Days"
-msgstr "Standardarbeitstage"
-
 #. Label of a Link field in DocType 'Leave'
+#. Name of a role
 #: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+#: leave_dashboard/leave_dashboard/doctype/leave_settings/leave_settings.json
 msgid "Employee"
 msgstr "Mitarbeiter"
 
-#: leave_dashboard/leave_dashboard/doctype/leave/leave.py:142
+#. Name of a DocType
+#: leave_dashboard/leave_dashboard/doctype/employee_leave_policies/employee_leave_policies.json
+msgid "Employee Leave Policies"
+msgstr ""
+
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.py:148
 msgid "Employee {0} does not have enough leave balance ({1}) for {2} in period {3} - {4}."
 msgstr "Mitarbeiter {0} hat nicht genügend Urlaubssaldo ({1}) für {2} im Zeitraum {3} – {4}."
 
-#: leave_dashboard/leave_dashboard/doctype/leave/leave.py:118
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.py:121
 msgid "Employee {0} has already applied for {1} between {2} and {3} : {4}"
 msgstr "Mitarbeiter {0} hat bereits {1} zwischen {2} und {3} beantragt: {4}"
 
@@ -108,9 +109,14 @@ msgstr "Mitarbeiter {0} hat bereits {1} zwischen {2} und {3} beantragt: {4}"
 msgid "Evening"
 msgstr "Abend"
 
+#. Label of a Check field in DocType 'Working Days'
+#: leave_dashboard/leave_dashboard/doctype/working_days/working_days.json
+msgid "Fri"
+msgstr ""
+
 #. Label of a Select field in DocType 'Leave'
 #: leave_dashboard/leave_dashboard/doctype/leave/leave.json
-#: leave_dashboard/www/leave_dashboard.html:26
+#: leave_dashboard/www/leave_dashboard.html:22
 msgid "From"
 msgstr "Von"
 
@@ -119,10 +125,16 @@ msgstr "Von"
 msgid "From Date"
 msgstr "Von Datum"
 
-#. Label of a Int field in DocType 'Weekday'
-#: leave_dashboard/leave_dashboard/doctype/weekday/weekday.json
-msgid "Index"
-msgstr "Index"
+#. Name of a role
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.json
+#: leave_dashboard/leave_dashboard/doctype/leave_settings/leave_settings.json
+msgid "HR Manager"
+msgstr ""
+
+#. Name of a role
+#: leave_dashboard/leave_dashboard/doctype/leave_settings/leave_settings.json
+msgid "HR User"
+msgstr ""
 
 #. Label of a Data field in DocType 'Custom Holiday'
 #: leave_dashboard/leave_dashboard/doctype/custom_holiday/custom_holiday.json
@@ -131,21 +143,22 @@ msgstr "Bezeichnung"
 
 #. Name of a DocType
 #: leave_dashboard/leave_dashboard/doctype/leave/leave.json
-#: leave_dashboard/www/leave_dashboard.html:42
+#: leave_dashboard/www/leave_dashboard.html:38
 msgid "Leave"
 msgstr "Abwesenheit"
 
 #. Label of a Link field in DocType 'Leave'
+#. Name of a role
 #: leave_dashboard/leave_dashboard/doctype/leave/leave.json
 msgid "Leave Approver"
 msgstr "Abwesenheitsgenehmiger"
 
-#: leave_dashboard/leave_dashboard/doctype/leave/leave.py:77
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.py:80
 msgid "Leave Approver is Mandatory for {0}"
 msgstr "Ein Abwesenheitsgenehmiger ist für {0} erforderlich"
 
 #: leave_dashboard/www/leave_dashboard.html:3
-#: leave_dashboard/www/leave_dashboard.html:20
+#: leave_dashboard/www/leave_dashboard.html:16
 msgid "Leave Dashboard"
 msgstr "Abwesenheitsübersicht"
 
@@ -158,6 +171,11 @@ msgstr "Abwesenheitsübersicht Abwesenheitstypen"
 #: leave_dashboard/leave_dashboard/doctype/leave_dashboard_settings/leave_dashboard_settings.json
 msgid "Leave Dashboard Settings"
 msgstr "Einstellungen der Abwesenheitsübersicht"
+
+#. Label of a Link field in DocType 'Employee Leave Policies'
+#: leave_dashboard/leave_dashboard/doctype/employee_leave_policies/employee_leave_policies.json
+msgid "Leave Policy"
+msgstr ""
 
 #. Name of a DocType
 #: leave_dashboard/leave_dashboard/doctype/leave_settings/leave_settings.json
@@ -177,10 +195,10 @@ msgstr "Abwesenheitstyp"
 msgid "Leave Type Styles"
 msgstr "Stile der Abwesenheitstypen"
 
-#. Description of the 'Index' (Int) field in DocType 'Weekday'
-#: leave_dashboard/leave_dashboard/doctype/weekday/weekday.json
-msgid "Monday == 0 ... Sunday == 6"
-msgstr "Montag == 0 ... Sonntag == 6"
+#. Label of a Check field in DocType 'Working Days'
+#: leave_dashboard/leave_dashboard/doctype/working_days/working_days.json
+msgid "Mon"
+msgstr ""
 
 #. Option for the 'From' (Select) field in DocType 'Leave'
 #: leave_dashboard/leave_dashboard/doctype/leave/leave.json
@@ -202,6 +220,7 @@ msgid "No leaves have been allocated."
 msgstr "Es sind keine Abwesenheiten zugewiesen."
 
 #. Option for the 'From' (Select) field in DocType 'Leave'
+#. Option for the 'To' (Select) field in DocType 'Leave'
 #: leave_dashboard/leave_dashboard/doctype/leave/leave.json
 msgid "Noon"
 msgstr "Mittags"
@@ -246,6 +265,11 @@ msgstr "Grund"
 msgid "Rejected"
 msgstr "Abgelehnt"
 
+#. Label of a Check field in DocType 'Working Days'
+#: leave_dashboard/leave_dashboard/doctype/working_days/working_days.json
+msgid "Sat"
+msgstr ""
+
 #. Label of a Select field in DocType 'Leave'
 #: leave_dashboard/leave_dashboard/doctype/leave/leave.json
 msgid "Status"
@@ -256,11 +280,15 @@ msgstr "Status"
 msgid "Style"
 msgstr "Stil"
 
+#. Label of a Check field in DocType 'Working Days'
+#: leave_dashboard/leave_dashboard/doctype/working_days/working_days.json
+msgid "Sun"
+msgstr ""
+
 #. Name of a role
 #: leave_dashboard/leave_dashboard/doctype/leave/leave.json
 #: leave_dashboard/leave_dashboard/doctype/leave_dashboard_settings/leave_dashboard_settings.json
 #: leave_dashboard/leave_dashboard/doctype/leave_settings/leave_settings.json
-#: leave_dashboard/leave_dashboard/doctype/weekday/weekday.json
 msgid "System Manager"
 msgstr ""
 
@@ -268,6 +296,11 @@ msgstr ""
 #: leave_dashboard/leave_dashboard/doctype/leave_dashboard_leave_types/leave_dashboard_leave_types.json
 msgid "Text"
 msgstr "Text"
+
+#. Label of a Check field in DocType 'Working Days'
+#: leave_dashboard/leave_dashboard/doctype/working_days/working_days.json
+msgid "Thu"
+msgstr ""
 
 #. Label of a Select field in DocType 'Custom Holiday'
 #: leave_dashboard/leave_dashboard/doctype/custom_holiday/custom_holiday.json
@@ -284,11 +317,11 @@ msgstr "Bis"
 msgid "To Date"
 msgstr "Bis Datum"
 
-#: leave_dashboard/leave_dashboard/doctype/leave/leave.py:72
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.py:75
 msgid "To and from date cannot be the same and both on noon"
 msgstr "Von- und Bis-Datum dürfen nicht gleich sein und beide auf Mittag liegen"
 
-#: leave_dashboard/leave_dashboard/doctype/leave/leave.py:64
+#: leave_dashboard/leave_dashboard/doctype/leave/leave.py:67
 msgid "To date cannot be before from date"
 msgstr "Das Bis-Datum darf nicht vor dem Von-Datum liegen"
 
@@ -297,12 +330,24 @@ msgstr "Das Bis-Datum darf nicht vor dem Von-Datum liegen"
 msgid "Total Leave Days"
 msgstr "Gesamte Abwesenheitstage"
 
-#: leave_dashboard/www/leave_dashboard.html:32
+#. Label of a Check field in DocType 'Working Days'
+#: leave_dashboard/leave_dashboard/doctype/working_days/working_days.json
+msgid "Tue"
+msgstr ""
+
+#: leave_dashboard/www/leave_dashboard.html:28
 msgid "Until"
 msgstr "Bis"
 
 #: leave_dashboard/leave_dashboard/doctype/leave/leave_balance_overview.html:9
 msgid "Used"
+msgstr ""
+
+#. Label of a Date field in DocType 'Employee Leave Policies'
+#. Label of a Date field in DocType 'Working Days'
+#: leave_dashboard/leave_dashboard/doctype/employee_leave_policies/employee_leave_policies.json
+#: leave_dashboard/leave_dashboard/doctype/working_days/working_days.json
+msgid "Valid From"
 msgstr ""
 
 #. Label of a Int field in DocType 'Leave Dashboard Settings'
@@ -315,15 +360,19 @@ msgstr "Anzuzeigende Tage in der Zukunft"
 msgid "View Days in Past"
 msgstr "Anzuzeigende Tage in der Vergangenheit"
 
-#. Name of a DocType
-#: leave_dashboard/leave_dashboard/doctype/weekday/weekday.json
-msgid "Weekday"
-msgstr "Wochentag"
+#. Label of a Check field in DocType 'Working Days'
+#: leave_dashboard/leave_dashboard/doctype/working_days/working_days.json
+msgid "Wed"
+msgstr ""
+
+#: leave_dashboard/leave_dashboard/fixtures/workflow_action_master.json
+msgid "Withdraw"
+msgstr "Zurückziehen"
 
 #. Name of a DocType
-#: leave_dashboard/leave_dashboard/doctype/working_day/working_day.json
-msgid "Working Day"
-msgstr "Arbeitstag"
+#: leave_dashboard/leave_dashboard/doctype/working_days/working_days.json
+msgid "Working Days"
+msgstr ""
 
 #. Description of the 'Date (Day & Month)' (Date) field in DocType 'Custom
 #. Holiday'
@@ -333,7 +382,7 @@ msgstr "Arbeitstag"
 msgid "Year will be ignored"
 msgstr "Jahr wird ignoriert"
 
-#: leave_dashboard/www/leave_dashboard.py:17
+#: leave_dashboard/www/leave_dashboard.py:19
 msgid "You need to be logged in to access this page"
 msgstr "Sie müssen angemeldet sein, um auf diese Seite zuzugreifen"
 

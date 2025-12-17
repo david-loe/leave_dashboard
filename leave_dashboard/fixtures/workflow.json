@@ -4,7 +4,7 @@
   "doctype": "Workflow",
   "document_type": "Leave",
   "is_active": 1,
-  "modified": "2025-12-08 11:33:39.815615",
+  "modified": "2025-12-17 10:02:58.023207",
   "name": "Leave Application",
   "override_status": 0,
   "send_email_alert": 0,
@@ -58,7 +58,7 @@
     "workflow_builder_id": null
    },
    {
-    "allow_edit": "Leave Approver",
+    "allow_edit": "All",
     "avoid_status_override": 0,
     "doc_status": "2",
     "is_optional_state": 1,

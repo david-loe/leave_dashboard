@@ -252,6 +252,14 @@ fixtures = [
         "filters": [["name", "in", ["Leave Application"]]],
     },
     {
+        "doctype": "Workflow Action Master",
+        "filters": [["name", "in", ["Withdraw", "Submit"]]],
+    },
+    {
+        "doctype": "Workflow State",
+        "filters": [["name", "in", ["Cancelled", "Open"]]],
+    },
+    {
         "doctype": "Custom Field",
         "filters": [],
         "or_filters": [

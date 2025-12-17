@@ -1,0 +1,20 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-12-03 10:13:25.069454",
+  "name": "Open",
+  "style": "",
+  "workflow_state_name": "Open"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-12-03 10:14:00.954168",
+  "name": "Cancelled",
+  "style": "",
+  "workflow_state_name": "Cancelled"
+ }
+]
