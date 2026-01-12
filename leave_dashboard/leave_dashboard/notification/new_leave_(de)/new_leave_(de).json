@@ -1,0 +1,30 @@
+{
+ "attach_print": 0,
+ "channel": "Email",
+ "condition": "doc.leave_approver and doc.status == \"Open\"",
+ "creation": "2026-01-12 15:17:08.120419",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Leave",
+ "enabled": 1,
+ "event": "New",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "{% set from_date_str = frappe.utils.getdate(doc.from_date).strftime(\"%-d.%-m.\") %}\n{% set to_date_str   = frappe.utils.getdate(doc.to_date).strftime(\"%-d.%-m.%Y\") %}\n\n<h3>Neuer Antrag auf {{ doc.leave_type }}</h3>\n<p>\n<strong>{{ doc.employee }}</strong> hat einen neuen Urlaubsantrag \n(<em>{{ doc.name }}</em>) eingereicht.\n</p>\n<ul>\n<li>Zeitraum: {{ from_date_str }} \u2013 {{ to_date_str }}</li>\n<li>Typ: {{ doc.leave_type }}</li>\n<li>Anzahl Tage: {{ doc.total_leave_days }}</li>\n{% if doc.reason %}\n  <li>Grund: {{ doc.reason }}</li>\n{% endif %}\n</ul>\n<p style=\"text-align: center; margin-top: 20px;\">\n<a href=\"{{ frappe.utils.get_url_to_form(doc.doctype, doc.name) }}\"\n   style=\"display: inline-block; background-color: #1890ff; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-size: 15px;\">\n  Antrag jetzt pr\u00fcfen\n</a>\n</p>\n<p>Hier kommst du zur <a href=\"{{frappe.utils.get_url()}}/leave_dashboard\">Urlaubs\u00fcbersicht</a>.</p>\n",
+ "message_type": "Markdown",
+ "minutes_offset": 0,
+ "modified": "2026-01-12 15:28:57.081294",
+ "modified_by": "Administrator",
+ "module": "Leave Dashboard",
+ "name": "New Leave (DE)",
+ "owner": "Administrator",
+ "recipients": [
+  {
+   "receiver_by_document_field": "leave_approver"
+  }
+ ],
+ "send_system_notification": 0,
+ "send_to_all_assignees": 0,
+ "subject": "Neuer Antrag auf {{ doc.leave_type }}"
+}

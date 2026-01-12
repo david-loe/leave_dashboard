@@ -1,0 +1,20 @@
+{
+    "app": "leave_dashboard",
+    "creation": "2026-01-12 15:13:58.666575",
+    "docstatus": 0,
+    "doctype": "Desktop Icon",
+    "hidden": 0,
+    "icon": "calendar-heart",
+    "icon_type": "App",
+    "idx": 0,
+    "label": "Leave",
+    "link": "/leave_dashboard",
+    "link_type": "External",
+    "modified": "2026-01-12 15:13:58.666575",
+    "modified_by": "Administrator",
+    "name": "Leave",
+    "owner": "Administrator",
+    "restrict_removal": 0,
+    "roles": [],
+    "standard": 1
+}

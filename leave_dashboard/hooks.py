@@ -244,10 +244,6 @@ export_python_type_annotations = True
 
 fixtures = [
     {
-        "doctype": "Notification",
-        "filters": [["name", "in", ["Leave Status Changed (DE)", "New Leave (DE)"]]],
-    },
-    {
         "doctype": "Workflow",
         "filters": [["name", "in", ["Leave Application"]]],
     },
